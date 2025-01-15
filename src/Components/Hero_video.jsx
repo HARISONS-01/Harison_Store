@@ -14,7 +14,7 @@ function Hero_video() {
         </span>
         one finishes with the portrait.
       </div>
-      <div className="videoimg relative mt-12 h-auto mx-auto container hover:brightness-50 hover:scale-105 duration-300">
+      <div className="videoimg relative mt-12 h-auto mx-auto container hover:brightness-50 hover:scale-105 duration-300 delay-3">
         <span className="flex justify-center">
           <div className="relative ">
             <FaRegPlayCircle className="absolute left-[45%] top-[45%] text-white text-8xl" />
