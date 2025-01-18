@@ -1,23 +1,49 @@
+import React, { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './Components/Navbar'
 import Blogs from './Components/Blogs'
 import Footer from './Components/Footer'
 import Hero_video from './Components/Hero_video'
-import Navbar from './Components/Navbar'
 import Popular_products from './Components/Popular_products'
 import Products from './Components/Products'
-// import Secondary_products from './Components/Secondary_products'
+import CartPage from './Components/CartPage'
+import Secondary_products from './Components/Secondary_products'
 
 function App() {
+  const [cartCount, setCartCount] = useState(0)
+
+  const updateCartCount = () => {
+    setCartCount((prevCount) => prevCount + 1)
+  }
+
   return (
     <>
-      <div className="div">
-        {/* <p className="text-red-400">this is new chapter</p> */}
-        <Navbar />
-        <Products />
-        <Hero_video />
-        {/* <Secondary_products /> */}
-        <Popular_products />
-        <Blogs />
-        <Footer />
+      {/* Pass cartCount to Navbar to update the cart icon */}
+      <Navbar cartCount={cartCount} />
+
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                {/* Pass updateCartCount to Products and Secondary_products */}
+                <Products updateCartCount={updateCartCount} />
+                <Hero_video />
+                <Secondary_products updateCartCount={updateCartCount} />
+                <Popular_products updateCartCount={updateCartCount} />
+                <Blogs />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/products"
+            element={<Products updateCartCount={updateCartCount} />}
+          />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Routes>
       </div>
     </>
   )

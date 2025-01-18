@@ -10,53 +10,52 @@ import product7 from '../assets/Images/product7.jpg'
 import product8 from '../assets/Images/product8.jpg'
 import product9 from '../assets/Images/product9.jpg'
 import product10 from '../assets/Images/product10.jpg'
-import product11 from '../assets/Images/product11.jpg'
-import product12 from '../assets/Images/product12.jpg'
-import product13 from '../assets/Images/product13.jpg'
-import product14 from '../assets/Images/product14.jpg'
-import product15 from '../assets/Images/product15.jpg'
-import product16 from '../assets/Images/product16.jpg'
-import product17 from '../assets/Images/product17.jpg'
-import product18 from '../assets/Images/product18.jpg'
-import product19 from '../assets/Images/product19.jpg'
+import product11 from '../assets/Images/product10.jpg'
+import product12 from '../assets/Images/product10.jpg'
+import product13 from '../assets/Images/product10.jpg'
+import product14 from '../assets/Images/product10.jpg'
+import product15 from '../assets/Images/product10.jpg'
+import product16 from '../assets/Images/product10.jpg'
+import product17 from '../assets/Images/product10.jpg'
+import product18 from '../assets/Images/product10.jpg'
+import product19 from '../assets/Images/product10.jpg'
 
 const popular_products = [
-  { productimg: product1, productname: 'P1' },
-  { productimg: product2, productname: 'p2' },
-  { productimg: product3, productname: 'p3' },
-  { productimg: product4, productname: 'p4' },
-  { productimg: product5, productname: 'p5' },
-  { productimg: product6, productname: 'p6' },
-  { productimg: product7, productname: 'p7' },
-  { productimg: product8, productname: 'p8' },
-  { productimg: product9, productname: 'p9' },
-  { productimg: product10, productname: 'p5' },
-  { productimg: product11, productname: 'p6' },
-  { productimg: product12, productname: 'p7' },
-  { productimg: product13, productname: 'p8' },
-  { productimg: product14, productname: 'p9' },
-  { productimg: product15, productname: 'p9' },
-  { productimg: product16, productname: 'p5' },
-  { productimg: product17, productname: 'p6' },
-  { productimg: product18, productname: 'p7' },
-  { productimg: product19, productname: 'p8' },
+  { imageUrl: product1, productname: 'P1' },
+  { imageUrl: product2, productname: 'P2' },
+  { imageUrl: product3, productname: 'P3' },
+  { imageUrl: product4, productname: 'P4' },
+  { imageUrl: product5, productname: 'P5' },
+  { imageUrl: product6, productname: 'P6' },
+  { imageUrl: product7, productname: 'P7' },
+  { imageUrl: product8, productname: 'P8' },
+  { imageUrl: product9, productname: 'P9' },
+  { imageUrl: product10, productname: 'P10' },
+  { imageUrl: product11, productname: 'P11' },
+  { imageUrl: product12, productname: 'P12' },
+  { imageUrl: product13, productname: 'P13' },
+  { imageUrl: product14, productname: 'P14' },
+  { imageUrl: product15, productname: 'P15' },
+  { imageUrl: product16, productname: 'P16' },
+  { imageUrl: product17, productname: 'P17' },
+  { imageUrl: product18, productname: 'P18' },
+  { imageUrl: product19, productname: 'P19' },
 ]
-function Popular_products() {
+
+function Popular_products({ updateCartCount }) {
   return (
     <div className="relative h-auto mx-auto container mt-12">
       <div className="flex justify-between">
         <span className="text-4xl font-medium">Popular Products</span>
-        <div className="options flex gap-4 text-[20px]">
-          <a href="#">All Products |</a>
-          <a href="#">Decoration |</a>
-          <a href="#">Accessory |</a>
-          <a href="#">Furniture</a>
-        </div>
       </div>
       <div className="allproducts mt-12 flex flex-wrap gap-12 justify-center">
-        {popular_products.map((element, index) => {
-          return <Secondary_products data={element} />
-        })}
+        {popular_products.map((element, index) => (
+          <Secondary_products
+            key={index}
+            data={element}
+            updateCartCount={updateCartCount}
+          />
+        ))}
       </div>
     </div>
   )
