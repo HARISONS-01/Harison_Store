@@ -13,6 +13,10 @@ function Navbar({ cartCount }) {
     navigate('/cart')
   }
 
+  const handleProfileClick = () => {
+    navigate('/profile')
+  }
+
   return (
     <div>
       <div className="maintitle bg-gradient-to-r from-yellow-500 to-orange-500 w-full h-14 font-bold text-center">
@@ -26,7 +30,10 @@ function Navbar({ cartCount }) {
           <img src={HARISONS} alt="Logo" />
         </div>
         <div className="subicon flex justify-center items-center gap-12">
-          <RiContactsLine className="text-gray-600 text-2xl" />
+          <RiContactsLine
+            className="text-gray-600 text-2xl cursor-pointer"
+            onClick={handleProfileClick}
+          />
           <div
             className="relative inline-block cursor-pointer"
             onClick={handleCartClick}

@@ -25,7 +25,7 @@ function Secondary_products({ data, updateCartCount }) {
 
       // Assuming axios.post logic remains the same
       const response = await axios.post(
-        'http://localhost:8000/api/cart/add',
+        'http://localhost:8000/api/products/create',
         productDetails,
       )
 
