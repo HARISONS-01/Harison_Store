@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Navbar({ cartCount }) {
-  const [wishlistCount, setWishlistCount] = useState(0)
-  const [wishlistProducts, setWishlistProducts] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
+  const [wishlistCount, setWishlistCount] = useState(0) // Wishlist count state
+  const [wishlistProducts, setWishlistProducts] = useState([]) // Wishlist products state
   const navigate = useNavigate()
 
   const handleCartClick = () => {
@@ -22,23 +21,23 @@ function Navbar({ cartCount }) {
   }
 
   const handleWishlistClick = async () => {
-    const userId = 'USER_ID'
+    const userId = 'USER_ID' // Replace with logged-in user ID
 
     try {
       const response = await axios.get(
         `http://localhost:8000/api/wishlists/${userId}`,
       )
       const products = response.data
-      setWishlistProducts(products)
-      setWishlistCount(products.length)
-      navigate('/wishlist')
+      setWishlistProducts(products) // Update wishlist products
+      setWishlistCount(products.length) // Update wishlist count
+      navigate('/wishlist') // Navigate to wishlist page
     } catch (error) {
       console.error('Error fetching wishlist:', error)
     }
   }
 
   return (
-    <div className="h-[200px]">
+    <div>
       {/* Top Notification Bar */}
       <div className="maintitle bg-gradient-to-r from-yellow-500 to-orange-500 w-full h-14 font-bold text-center">
         <span>&#10024;</span> Exciting new Design & Sales{' '}
@@ -76,19 +75,6 @@ function Navbar({ cartCount }) {
             </span>
           </div>
           <RxDragHandleHorizontal className="text-gray-600 text-2xl" />
-        </div>
-      </div>
-
-      {/* Fixed Search Bar */}
-      <div className="bg-gray-100 px-12 py-3 fixed top-28 w-full z-40 shadow-md">
-        <div className="flex items-center justify-center">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full max-w-md border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
         </div>
       </div>
     </div>

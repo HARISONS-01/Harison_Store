@@ -27,7 +27,20 @@ const products = [
 const Products = () => {
   return (
     <div className="text-center py-8">
-      <h1 className="text-2xl font-bold italic  mb-6">Harison's Store</h1>
+      <h1 className="text-2xl font-bold italic mt-8 mb-6">Harison's Store</h1>
+      <div className="search-bar bg-gray-100 px-4 py-3 shadow-md mt-12 w-full z-40">
+        <div className="flex items-center justify-center">
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="w-full max-w-lg border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-orange-400"
+          />
+          <button className="ml-4 bg-orange-400 text-white py-2 px-4 rounded-lg hover:bg-orange-500 transition-colors">
+            Search
+          </button>
+        </div>
+      </div>
+
       <div className="grid grid-cols-5 gap-6">
         {products.map((product) => (
           <ProductCard key={product.id} name={product.name} img={product.img} />
