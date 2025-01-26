@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { RiContactsLine } from 'react-icons/ri'
 import { IoBagHandleOutline } from 'react-icons/io5'
 import { FaRegHeart } from 'react-icons/fa'
 import { RxDragHandleHorizontal } from 'react-icons/rx'
 import HARISONS from '../assets/Images/HARISONS.png'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Navbar({ cartCount }) {
+  const [wishlistCount, setWishlistCount] = useState(0) // Wishlist count state
+  const [wishlistProducts, setWishlistProducts] = useState([]) // Wishlist products state
   const navigate = useNavigate()
 
   const handleCartClick = () => {
@@ -15,6 +18,22 @@ function Navbar({ cartCount }) {
 
   const handleProfileClick = () => {
     navigate('/profile')
+  }
+
+  const handleWishlistClick = async () => {
+    const userId = 'USER_ID' // Replace with logged-in user ID
+
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/wishlists/${userId}`,
+      )
+      const products = response.data
+      setWishlistProducts(products) // Update wishlist products
+      setWishlistCount(products.length) // Update wishlist count
+      navigate('/wishlist') // Navigate to wishlist page
+    } catch (error) {
+      console.error('Error fetching wishlist:', error)
+    }
   }
 
   return (
@@ -43,10 +62,13 @@ function Navbar({ cartCount }) {
               {cartCount}
             </span>
           </div>
-          <div className="relative inline-block">
+          <div
+            className="relative inline-block cursor-pointer"
+            onClick={handleWishlistClick}
+          >
             <FaRegHeart className="text-gray-600 text-2xl" />
             <span className="absolute -top-1 -right-1 bg-orange-400 h-4 w-4 rounded-full text-xs flex items-center justify-center text-white">
-              0
+              {wishlistCount}
             </span>
           </div>
           <RxDragHandleHorizontal className="text-gray-600 text-2xl" />

@@ -14,7 +14,8 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const { email, password } = formData
-
+    //
+    // 'http://localost:8000/api/auth/login'
     try {
       const response = await axios.post(
         'http://localhost:8000/api/auth/login',
@@ -23,10 +24,13 @@ const SignIn = () => {
           password,
         },
       )
-      console.log(response)
+      // console.log(response)
       const token = response.data.token
-
-      console.log('Login successful:', response.data.token)
+      const userId = response.data.user._id
+      // console.log(userId)
+      localStorage.setItem('userId', userId)
+      console.log(localStorage.getItem('userId'))
+      // console.log('Login successful:', response.data.token)
       localStorage.setItem('token', token) // Store JWT in localStorage
       navigate('/home') // Redirect to main page pr
     } catch (error) {
