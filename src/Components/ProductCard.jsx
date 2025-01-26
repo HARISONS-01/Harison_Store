@@ -11,5 +11,4 @@ const ProductCard = ({ name, img }) => {
   )
 }
 
-
 export default ProductCard

@@ -17,8 +17,10 @@ const SignIn = () => {
     //
     // 'http://localost:8000/api/auth/login'
     try {
+      console.log(import.meta.env.VITE_BASE_URI)
+      //  'http://localhost:8000/api/auth/login'
       const response = await axios.post(
-        'http://localhost:8000/api/auth/login',
+        `${import.meta.env.VITE_BASE_URI}/api/auth/login`,
         {
           email,
           password,

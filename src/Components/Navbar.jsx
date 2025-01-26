@@ -1,52 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RiContactsLine } from 'react-icons/ri'
 import { IoBagHandleOutline } from 'react-icons/io5'
 import { FaRegHeart } from 'react-icons/fa'
-import { RxDragHandleHorizontal } from 'react-icons/rx'
 import HARISONS from '../assets/Images/HARISONS.png'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-function Navbar({ cartCount }) {
-  const [wishlistCount, setWishlistCount] = useState(0) // Wishlist count state
-  const [wishlistProducts, setWishlistProducts] = useState([]) // Wishlist products state
+function Navbar({ cartCount, wishlistCount }) {
   const navigate = useNavigate()
 
   const handleCartClick = () => {
     navigate('/cart')
   }
 
-  const handleProfileClick = () => {
-    navigate('/profile')
-  }
-
   const handleWishlistClick = async () => {
-    const userId = 'USER_ID' // Replace with logged-in user ID
-
+    const userId = localStorage.getItem('userId')
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/wishlists/${userId}`,
+        `${import.meta.env.VITE_BASE_URI}/api/users/wishlists/${userId}`,
       )
-      const products = response.data
-      setWishlistProducts(products) // Update wishlist products
-      setWishlistCount(products.length) // Update wishlist count
-      navigate('/wishlist') // Navigate to wishlist page
+      console.log('Navigating to /wishlist with products:', response.data)
+      navigate('/wishlist', { state: { products: response.data } })
     } catch (error) {
-      console.error('Error fetching wishlist:', error)
+      console.error('Error fetching wishlist:', error.message || error)
     }
   }
 
   return (
     <div>
-      {/* Top Notification Bar */}
       <div className="maintitle bg-gradient-to-r from-yellow-500 to-orange-500 w-full h-14 font-bold text-center">
         <span>&#10024;</span> Exciting new Design & Sales{' '}
         <span className="block">
           <a href="#">Shop now</a>
         </span>
       </div>
-
-      {/* Icon Bar */}
       <div className="bg-white px-12 z-50 flex justify-between items-center iconbar w-full h-16 border-y-[1.5px] border-slate-300 fixed top-14">
         <div className="mainicon h-12 w-16">
           <img src={HARISONS} alt="Logo" />
@@ -54,7 +41,7 @@ function Navbar({ cartCount }) {
         <div className="subicon flex justify-center items-center gap-12">
           <RiContactsLine
             className="text-gray-600 text-2xl cursor-pointer"
-            onClick={handleProfileClick}
+            onClick={() => navigate('/profile')}
           />
           <div
             className="relative inline-block cursor-pointer"
@@ -74,7 +61,6 @@ function Navbar({ cartCount }) {
               {wishlistCount}
             </span>
           </div>
-          <RxDragHandleHorizontal className="text-gray-600 text-2xl" />
         </div>
       </div>
     </div>

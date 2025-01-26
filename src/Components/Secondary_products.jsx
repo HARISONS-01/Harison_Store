@@ -2,7 +2,12 @@ import React from 'react'
 import { FaShoppingBag, FaHeart } from 'react-icons/fa'
 import axios from 'axios'
 
-function Secondary_products({ data, updateCartCount, updateWishlistCount }) {
+function Secondary_products({
+  data,
+  updateCartCount,
+  updateWishlistCount,
+  updateWishlistProducts,
+}) {
   const {
     imageUrl = '/placeholder.png',
     productname = 'Unnamed Product',
@@ -23,12 +28,11 @@ function Secondary_products({ data, updateCartCount, updateWishlistCount }) {
         quantity: 1,
       }
       const response = await axios.post(
-        'http://localhost:8000/api/carts/add',
+        `${import.meta.env.VITE_BASE_URI}/api/carts/add`,
         productDetails,
       )
       if (response.status === 201 || response.data.success) {
         updateCartCount()
-        // updateWishlistCount()
         alert(`${productname} has been added to the cart!`)
       } else {
         alert('Failed to add product to cart.')
@@ -46,28 +50,24 @@ function Secondary_products({ data, updateCartCount, updateWishlistCount }) {
       return
     }
 
-    // Fetch user ID using token
     const userId = localStorage.getItem('userId')
 
     try {
-      // Add product to the wishlist
       const productDetails = {
-        userId: userId,
-        productId: data.id,
+        userId,
+        productId: data._id,
       }
-      console.log(productDetails.productId)
       const response = await axios.post(
-        'http://localost:8000/api/users/wishlists', // Corrected endpoint path
+        `${import.meta.env.VITE_BASE_URI}/api/users/wishlists`,
         productDetails,
       )
 
       if (response.status === 201 || response.data.success) {
-        // console.log(updateWishlistCount) // Should log a function
-
-        updateWishlistCount() // Update the wishlist count in parent
-        alert(`${productname}has been added to your wishlist!`)
+        updateWishlistCount()
+        updateWishlistProducts(data) // Add the product to wishlist
+        alert(`${productname} has been added to your wishlist!`)
       } else {
-        alert('product not added to wishlist.')
+        alert('Failed to add product to wishlist.')
       }
     } catch (error) {
       console.error('Error adding product to wishlist:', error)
@@ -98,9 +98,6 @@ function Secondary_products({ data, updateCartCount, updateWishlistCount }) {
       </div>
       <div className="product_name mt-2">
         <span className="block text-center font-medium">{productname}</span>
-        <span className="block text-center text-gray-600 font-medium">
-          Send Enquiry
-        </span>
       </div>
     </div>
   )

@@ -13,39 +13,35 @@ import SignIn from './Components/SignIn'
 import Profile from './Components/Profile'
 import Wishlist from './Components/Wishlist.jsx'
 
-// Lazy-load the Admin App
 const AdminApp = lazy(() => import('../Admin/admin-harison-react/src/App.jsx'))
 
 function App() {
   const [cartCount, setCartCount] = useState(0)
   const [wishlistCount, setWishlistCount] = useState(0)
   const [wishlistProducts, setWishlistProducts] = useState([])
+
   // Function to update cart count
   const updateCartCount = () => {
     setCartCount((prevCount) => prevCount + 1)
   }
 
-  // Function to update wishlist count
+  // Function to update wishlist count and wishlist products
   const updateWishlistCount = () => {
     setWishlistCount((prevCount) => prevCount + 1)
   }
 
+  const updateWishlistProducts = (product) => {
+    setWishlistProducts((prevProducts) => [...prevProducts, product])
+  }
+
   return (
     <>
-      {/* Pass cartCount and wishlistCount to Navbar */}
       <Navbar cartCount={cartCount} wishlistCount={wishlistCount} />
       <div>
         <Routes>
-          {/* Sign In Page */}
           <Route path="/" element={<SignIn />} />
-
-          {/* Register Page */}
           <Route path="/register" element={<Register />} />
-
-          {/* Profile Page */}
           <Route path="/profile" element={<Profile />} />
-
-          {/* Admin Panel Route */}
           <Route
             path="/admin/*"
             element={
@@ -54,38 +50,27 @@ function App() {
               </Suspense>
             }
           />
-
-          {/* Home Page */}
           <Route
             path="/home"
             element={
               <>
                 <Products updateCartCount={updateCartCount} />
                 <Hero_video />
-                {/* <Secondary_products
-                  updateCartCount={updateCartCount}
-                  updateWishlistCount={updateWishlistCount}
-                /> */}
                 <Popular_products
                   updateCartCount={updateCartCount}
                   updateWishlistCount={updateWishlistCount}
+                  updateWishlistProducts={updateWishlistProducts}
                 />
                 <Blogs />
                 <Footer />
               </>
             }
           />
-
-          {/* Products Page */}
           <Route
             path="/products"
             element={<Products updateCartCount={updateCartCount} />}
           />
-
-          {/* Blogs Page */}
           <Route path="/blogs" element={<Blogs />} />
-
-          {/* Cart Page */}
           <Route path="/cart" element={<CartPage />} />
           <Route
             path="/wishlist"

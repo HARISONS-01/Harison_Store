@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Secondary_products from './Secondary_products'
 import axios from 'axios'
 
-function Popular_products({ updateCartCount }) {
+function Popular_products({ updateCartCount, updateWishlistCount, updateWishlistProducts }) {
   const [products, setProducts] = useState([]) // State to store fetched products
 
   // Fetch products from the database
@@ -16,21 +16,14 @@ function Popular_products({ updateCartCount }) {
           return
         }
 
-        // const baseURI = process.env.REACT_APP_BASE_URI
-        // if (!baseURI) {
-        //   console.error('Base URI is not defined!')
-        //   return
-        // }
-
         const response = await axios.get(
-          'http://localhost:8000/api/admin/products/',
+          `${import.meta.env.VITE_BASE_URI}/api/admin/products/`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Pass the token
             },
           },
         )
-
         if (response.status === 200) {
           setProducts(response.data) // Assuming response.data contains an array of products
         } else {
@@ -55,6 +48,8 @@ function Popular_products({ updateCartCount }) {
             key={index}
             data={product}
             updateCartCount={updateCartCount}
+            updateWishlistCount={updateWishlistCount}
+            updateWishlistProducts={updateWishlistProducts} // Pass the update function to Secondary_products
           />
         ))}
       </div>

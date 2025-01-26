@@ -26,8 +26,9 @@ const Register = () => {
     }
 
     try {
+      // 'http://localhost:8000/api/api/auth/signup'
       const response = await axios.post(
-       'http://localhost:8000/api/api/auth/signup',
+        `${import.meta.env.VITE_BASE_URI}/api/auth/signup`,
         {
           username,
           email,

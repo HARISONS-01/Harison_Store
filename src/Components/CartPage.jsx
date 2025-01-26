@@ -6,7 +6,10 @@ function CartPage() {
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/auth/carts/')
+      // 'http://localhost:8000/api/carts/'
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URI}/api/carts`,
+      )
       setCartItems(response.data)
     } catch (error) {
       console.error('Error fetching cart items:', error)

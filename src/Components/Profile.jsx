@@ -12,8 +12,10 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         // Fetch user profile
+        // 'http://localhost:8000/api/auth/profile'
         const response = await axios.get(
-          'http://localhost:8000/api/auth/profile',
+          `${import.meta.env.VITE_BASE_URI}/api/auth/profile`
+          ,
         )
         const { username, email, isAdmin, cart, wishlist } = response.data // Destructure cart and wishlist
         setUserData({ username, email, isAdmin })
