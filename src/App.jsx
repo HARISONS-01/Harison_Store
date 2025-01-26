@@ -62,10 +62,10 @@ function App() {
               <>
                 <Products updateCartCount={updateCartCount} />
                 <Hero_video />
-                <Secondary_products
+                {/* <Secondary_products
                   updateCartCount={updateCartCount}
                   updateWishlistCount={updateWishlistCount}
-                />
+                /> */}
                 <Popular_products
                   updateCartCount={updateCartCount}
                   updateWishlistCount={updateWishlistCount}
