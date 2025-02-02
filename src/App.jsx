@@ -46,7 +46,7 @@ function App() {
             path="/admin/*"
             element={
               <Suspense fallback={<div>Loading Admin Panel...</div>}>
-                <AdminApp />
+                  <AdminApp />
               </Suspense>
             }
           />
